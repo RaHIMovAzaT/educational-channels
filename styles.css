@@ -1,0 +1,137 @@
+/* --- Общие стили и шрифт --- */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px auto;
+    max-width: 900px; /* Ограничиваем ширину, как 0.8\textwidth в LaTeX */
+    padding: 0 15px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* --- Заголовок как в LaTeX --- */
+.header-line {
+    border: 1px solid black;
+    margin: 10px 0;
+}
+
+.main-title {
+    font-size: 2.5em; /* Соответствует \Huge */
+    text-align: center;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.category-title {
+    font-size: 1.5em; /* Соответствует \section* */
+    margin: 30px 0 15px 0;
+    text-align: left;
+    font-weight: 700;
+}
+
+/* --- Контейнер таблицы (имитация \begin{tabularx}) --- */
+.channel-table {
+    border: 1px solid black; /* Внешняя рамка таблицы */
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* --- Заголовок таблицы (\thead) --- */
+.table-header {
+    display: grid;
+    grid-template-columns: 3cm 1fr; /* Имитация |p{3cm}|X| */
+    font-weight: bold;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.header-logo, .header-description {
+    padding: 10px 5px;
+    border-right: 1px solid black;
+}
+.header-description {
+    border-right: none;
+    text-align: left;
+}
+
+/* --- Строки контента (\ChannelCell) --- */
+.channel-row {
+    display: grid;
+    grid-template-columns: 3cm 1fr; /* Сохраняем структуру колонок */
+    border-bottom: 1px solid black; /* Горизонтальные линии \hline */
+    min-height: 100px; /* Чтобы вместить логотип */
+}
+
+/* Удаление нижней границы для последней строки, т.к. ее задает внешний контейнер */
+.channel-row:last-child,
+.channel-row.last-row {
+    border-bottom: none;
+}
+
+/* --- Первая колонка: Логотип и Ссылка --- */
+.logo-cell {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid black; /* Вертикальная линия */
+}
+
+.logo-cell a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-cell img {
+    width: 70px; /* Соответствует 1.5cm */
+    height: 70px;
+    border-radius: 50%; /* Делаем изображение круглым */
+    margin-bottom: 5px;
+}
+
+.channel-name {
+    font-weight: bold;
+    color: blue; /* Цвет текста ссылки, как \urlcolor в hyperref */
+    font-size: 0.9em;
+    text-decoration: none;
+    word-wrap: break-word; /* Перенос длинных названий */
+    width: 100%;
+}
+
+/* Изменение цвета ссылки при наведении */
+.logo-cell a:hover .channel-name {
+    color: red; /* Как linkcolor */
+    text-decoration: underline;
+}
+
+/* --- Вторая колонка: Описание --- */
+.description-cell {
+    padding: 10px 15px;
+    text-align: left;
+    display: flex; /* Для вертикального центрирования, если нужно */
+    align-items: center;
+}
+
+/* Медиа-запрос для адаптивности (на маленьких экранах) */
+@media (max-width: 600px) {
+    .channel-row, .table-header {
+        grid-template-columns: 1fr; /* Одна колонка на мобильных */
+    }
+    .logo-cell {
+        border-right: none;
+        border-bottom: 1px solid black;
+    }
+    .header-logo {
+        border-right: none;
+    }
+    .channel-row:not(.last-row) .description-cell {
+         border-bottom: 1px solid black;
+    }
+    .description-cell {
+        border-bottom: 1px solid black;
+    }
+    .channel-row.last-row .description-cell {
+        border-bottom: none;
+    }
+}
